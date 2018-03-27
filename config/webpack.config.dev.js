@@ -149,6 +149,17 @@ module.exports = {
               // It enables caching results in ./node_modules/.cache/babel-loader/
               // directory for faster rebuilds.
               cacheDirectory: true,
+              plugins: [
+                'transform-react-jsx',
+                [
+                  'react-css-modules',
+                  {
+                    generateScopedName: '[local]___[hash:base64:5]',
+                    webpackHotModuleReloading: true,
+                    exclude: 'node_modules'
+                  }
+                ]
+              ]
             },
           },
           // "postcss" loader applies autoprefixer to our CSS.
@@ -164,6 +175,8 @@ module.exports = {
                 loader: require.resolve('css-loader'),
                 options: {
                   importLoaders: 1,
+                  modules: true,
+                  localIdentName: '[local]___[hash:base64:5]'
                 },
               },
               {
